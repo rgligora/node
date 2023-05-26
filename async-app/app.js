@@ -1,8 +1,11 @@
 
 const {readFile} = require('fs');
 const http = require('http')
+const util = require('util')
 var counter = 1
 
+const readFilePromise = util.promisify(readFile)
+/* NOT NEED BECAUSE OF util.promisfy(readFile)!!!
 const getText = (path) => {
     return new Promise((resolve, reject) => {
         readFile(path, 'utf-8', (err, data)=> {
@@ -13,12 +16,13 @@ const getText = (path) => {
             }
         })
     })
-}
+} */
+
 const aboutFunction = async () => {
     try {
-        const first = await getText('./content/aboutPage.txt')
+        const first = await readFilePromise('../content/aboutPage.txt', 'utf-8')
         console.log("Loaded first file")
-        const second = await getText('./content/aboutPageAdditionalInfo.txt')
+        const second = await readFilePromise('../content/aboutPageAdditionalInfo.txt','utf-8')
         console.log("Loaded second file")
         console.log("About page loaded")
         return first + second
@@ -31,7 +35,7 @@ const server = http.createServer((req,res) => {
     if(req.url === '/'){
         console.log(`Starting task: ${counter}`)
         var first_task = counter
-        readFile('./content/first.txt', 'utf-8', (err, data) => {
+        readFile('../content/first.txt', 'utf-8', (err, data) => {
             if (err) throw err;
             console.log(data);
             console.log(`Ended task: ${first_task}\n`)

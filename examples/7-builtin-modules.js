@@ -36,12 +36,12 @@ const second = fs.readFileSync('./content/second.txt', 'utf-8')
 console.log(first)
 console.log(second)
 //ovewrite
-fs.writeFileSync('./content/result-sync.txt', `Here is the result: ${first}, ${second}`) 
+fs.writeFileSync('../content/result-sync.txt', `Here is the result: ${first}, ${second}`) 
 //append
-fs.writeFileSync('./content/result-sync-append.txt', `Here is the result: ${first}, ${second} `, {flag: 'a'}) 
+fs.writeFileSync('../content/result-sync-append.txt', `Here is the result: ${first}, ${second} `, {flag: 'a'}) 
 
 //FS built in module ASYNC
-fs.readFile('./content/first.txt','utf-8', (err, data) => {
+fs.readFile('../content/first.txt','utf-8', (err, data) => {
     if (err) throw err;
     console.log(`This is a ASYNC function: ${data}`);
 })
